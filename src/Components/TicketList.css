@@ -1,0 +1,24 @@
+
+.ticket-list-container {
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .ticket {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .ticket h3 {
+    margin-top: 0;
+  }
+  
+  .ticket p {
+    margin-bottom: 5px;
+  }
+  
+  .ticket p:last-child {
+    margin-bottom: 0;
+  }
