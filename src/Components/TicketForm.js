@@ -11,7 +11,7 @@ const TicketForm = () => {
     event.preventDefault();
     try {
       // Envoi des données au serveur pour créer un nouveau ticket
-      const response = await fetch('http://localhost:3000/ticket', {
+      const response = await fetch('https://test-kpmg-backend.onrender.com/ticket', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

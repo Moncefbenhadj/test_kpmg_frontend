@@ -9,7 +9,7 @@ const TicketList = () => {
     // Fonction pour récupérer la liste des tickets depuis le serveur
     const fetchTickets = async () => {
       try {
-        const response = await fetch('http://localhost:3000/ticket');
+        const response = await fetch('https://test-kpmg-backend.onrender.com/ticket');
         if (response.ok) {
           const data = await response.json();
           console.log(data)
