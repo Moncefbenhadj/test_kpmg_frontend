@@ -11,7 +11,7 @@ const TicketDetails = () => {
     // Récupérer les détails du ticket depuis le serveur en utilisant l'ID du ticket dans les paramètres de l'URL
     const fetchTicketDetails = async () => {
       try {
-        const response = await fetch(`https://test-kpmg-backend.onrender.com/${id}`);
+        const response = await fetch(`https://test-kpmg-backend.onrender.com/ticket/${id}`);
         if (response.ok) {
           const data = await response.json();
           setTicket(data);
