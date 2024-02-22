@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const TicketDetails = () => {
     const { id } = useParams();
@@ -11,7 +12,7 @@ const TicketDetails = () => {
     useEffect(() => {
         const fetchTicketDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/ticket/${id}`);
+                const response = await fetch(`https://test-kpmg-backend.onrender.com/ticket/${id}`);
                 if (response.ok) {
                     const data = await response.json();
                     setTicket(data);
@@ -46,7 +47,7 @@ const TicketDetails = () => {
             console.log(changement)
             try {
                 console.log('requete')
-            const response = await fetch(`http://localhost:3000/ticket/${id}`, {
+            const response = await fetch(`https://test-kpmg-backend.onrender.com/ticket/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -54,7 +55,7 @@ const TicketDetails = () => {
                 body: JSON.stringify(changement)
             });
             if (response.ok) {
-                console.log('Ticket modifier')
+                alert('Ticket validé')
             } else {
                 console.error('Erreur lors de la mise à jour du ticket');
             }
@@ -67,28 +68,42 @@ const TicketDetails = () => {
         return <div>Loading...</div>;
     }
 
+    function formatISODate(isoDateString) {
+        const date = new Date(isoDateString);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
     return (
         <div className="container">
-            <h2 className="my-4">{ticket.intitule}</h2>
-            <h2 className="my-4">{ticket.description}</h2>
-            <h2 className="my-4">{ticket.deadline}</h2>
+            <Link to='/'><img src='https://iconape.com/wp-content/png_logo_vector/kpmg-logo.png' width='100px'></img></Link>
+            <h2 className="my-4"><b className='text-decoration-underline'>Intitulé du ticket:</b>  {ticket.intitule}</h2>
+            <h2 className="my-4"><b className='text-decoration-underline'>Deadline:</b> {formatISODate(ticket.deadline)}</h2>
+            <h2 className="my-4"><b className='text-decoration-underline'>Description:</b></h2>
+            <h5 className="my-4 text-secondary">{ticket.description}</h5>
+            
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="remarks">Remarques :</label>
+                    <label htmlFor="remarks"><b className='text-decoration-underline'>Remarque:</b></label>
                     <textarea className="form-control" id="remarks" value={remarks} onChange={handleRemarksChange}></textarea>
                 </div>
+                <br/>
                 <div className="form-group">
-                    <label htmlFor="status">État du ticket :</label>
+                    <label htmlFor="status"><b className='text-decoration-underline'>Etat du ticket:</b><br/></label>
                     <select className="form-control" id="status" value={etat} onChange={handleTicketStatusChange}>
                         <option value="open">Ouvert</option>
                         <option value="closed">Fermé</option>
                     </select>
                 </div>
+                <br/>
                 <div className="form-group">
                     <label htmlFor="attachment">Pièce jointe :</label>
                     <input type="file" className="form-control-file" id="attachment" onChange={handleAttachmentChange} />
                 </div>
-                <button type="submit" className="btn btn-primary">Enregistrer les modifications</button>
+                <br/>
+                <button type="submit" className="btn btn-primary">Valider le ticket</button>
             </form>
         </div>
     );
