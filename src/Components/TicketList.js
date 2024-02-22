@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import './TicketList.css'
 
-
-const TicketList = () => {
+const TicketList = (props) => {
   const [tickets, setTickets] = useState([]);
+  const [filtre, setFiltre] = useState('open'); // État par défaut  'open'
 
   useEffect(() => {
-    // Fonction pour récupérer la liste des tickets depuis le serveur
     const fetchTickets = async () => {
       try {
-        const response = await fetch('https://test-kpmg-backend.onrender.com/ticket');
+        const response = await fetch('http://localhost:3000/ticket');
         if (response.ok) {
           const data = await response.json();
-          console.log(data)
           setTickets(data);
         } else {
           console.error('Erreur lors de la récupération des tickets');
@@ -22,25 +21,42 @@ const TicketList = () => {
       }
     };
 
-    // Appel de la fonction pour récupérer les tickets lors du chargement du composant
     fetchTickets();
-  },[]);
+  }, [filtre]);
 
-  return (
+  return (        
     <div className="container">
       <h2 className="my-4">Liste des tickets</h2>
+     
+      <div className="btn-group mb-4">
+        <button
+          className={`btn ${filtre === 'open' ? 'btn-success' : 'btn-secondary'}`}
+          onClick={() => setFiltre('open')}
+        >
+          Tickets Ouverts
+        </button>
+        <button
+          className={`btn ${filtre === 'closed' ? 'btn-danger' : 'btn-secondary'}`}
+          onClick={() => setFiltre('closed')}
+        >
+          Tickets Fermés
+        </button>
+      </div>
+
       <ul className="list-group">
-        {tickets.sort().map(ticket => (
+        {tickets.map(ticket => (
+          ticket.etat === filtre &&
           <li key={ticket.id} className="list-group-item">
-            
             <div>
-            <h3 className="mb-3"><Link to={`/tickets/${ticket._id}`}>
-            {ticket.intitule}</Link></h3>
-            <p className="mb-2">{ticket.description}</p>
-            <p className="mb-0">Deadline : {ticket.deadline}</p>
+              <h3 className="mb-3">
+                <Link to={`/tickets/${ticket._id}/${props.vue}`} className="text-decoration-none">
+                  {ticket.intitule}
+                </Link>
+              </h3>
+              <p className="mb-2">{ticket.description}</p>
+              <p className="mb-0">Deadline : {ticket.deadline}</p>
             </div>
-            </li>
-        
+          </li>
         ))}
       </ul>
     </div>

@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import './TicketForm.css' ; 
+import './TicketForm.css'; // Import du fichier de style CSS
 
 const TicketForm = () => {
   const [intitule, setTitle] = useState('');
@@ -11,7 +10,7 @@ const TicketForm = () => {
     event.preventDefault();
     try {
       // Envoi des données au serveur pour créer un nouveau ticket
-      const response = await fetch('https://test-kpmg-backend.onrender.com/ticket', {
+      const response = await fetch('http://localhost:3000/ticket', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -19,7 +18,7 @@ const TicketForm = () => {
         body: JSON.stringify({ intitule, description, deadline }),
       });
       if (response.ok) {
-        console.log('Ticket créé avec succès');
+        alert('Ticket créé avec succès');
         // Réinitialiser le formulaire après la création du ticket
         setTitle('');
         setDescription('');
@@ -68,7 +67,7 @@ const TicketForm = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary col-4 mb-3">Créer le ticket</button>
+        <button type="submit" className="btn btn-secondary col-4 mb-3">Créer le ticket</button>
       </form>
     </div>
   );

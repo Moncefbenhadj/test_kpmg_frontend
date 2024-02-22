@@ -1,24 +1,25 @@
+.list-group-item {
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  margin-bottom: 10px;
+}
 
-.ticket-list-container {
-    max-width: 600px;
-    margin: auto;
-  }
-  
-  .ticket {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .ticket h3 {
-    margin-top: 0;
-  }
-  
-  .ticket p {
-    margin-bottom: 5px;
-  }
-  
-  .ticket p:last-child {
-    margin-bottom: 0;
-  }
+.list-group-item:hover {
+  background-color: #f8f9fa;
+}
+
+.btn-group {
+  margin-bottom: 20px;
+}
+
+.btn {
+  margin-right: 10px;
+}
+
+h3 {
+  color: #007bff;
+}
+
+.text-decoration-none {
+  text-decoration: none ;
+}
